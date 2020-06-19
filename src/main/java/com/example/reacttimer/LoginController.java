@@ -21,7 +21,6 @@ public class LoginController {
                 .setExpiration(new Date(currentTimeMillis + 20000))
                 .signWith(SignatureAlgorithm.ES512, user.getPassword())
                 .compact();
-        System.out.println(compact);
         return compact;
     }
 }

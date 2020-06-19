@@ -23,7 +23,6 @@ public class TimeboxService {
                 .collect(Collectors.toList());
     }
 
-
     public TimeboxTo addTimebox(TimeboxTo timeboxTo) {
         Timebox timeboxtoSave = TimeboxMapper.toTimeboxEntity(timeboxTo);
         Timebox savedTimebox = timeboxRepository.save(timeboxtoSave);

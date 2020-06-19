@@ -1,7 +1,5 @@
 package com.example.reacttimer;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,9 +11,7 @@ public class Timebox {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
     private String title;
-    @NotNull
     private Integer totalTimeInMinutes;
 
     public Long getId() {

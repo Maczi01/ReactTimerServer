@@ -15,7 +15,8 @@ public class JwtFilter implements javax.servlet.Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String header = httpServletRequest.getHeader("authorization");
-        if (httpServletRequest != null || header.startsWith("Bearer ")) {
+        System.out.println(header);
+        if (httpServletRequest != null || !header.startsWith("Bearer ")) {
             throw new ServletException("Wrong header");
         } else {
             try {

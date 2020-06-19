@@ -18,8 +18,8 @@ public class LoginController {
                 .setSubject(user.getLogin())
                 .claim("roles", "user")
                 .setIssuedAt(new Date(currentTimeMillis))
-                .setExpiration(new Date(currentTimeMillis + 20000))
-                .signWith(SignatureAlgorithm.ES512, user.getPassword())
+                .setExpiration(new Date(currentTimeMillis + 50000))
+                .signWith(SignatureAlgorithm.HS512, user.getPassword())
                 .compact();
         return compact;
     }

@@ -18,7 +18,7 @@ public class ReacttimerApplication {
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new JwtFilter());
-        filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/*"));
+        filterRegistrationBean.setUrlPatterns(Collections.singleton("/api/timeboxes"));
         return filterRegistrationBean;
     }
 

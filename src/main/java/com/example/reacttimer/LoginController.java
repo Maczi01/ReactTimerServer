@@ -2,6 +2,7 @@ package com.example.reacttimer;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,10 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 @RestController
+@CrossOrigin
 public class LoginController {
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
+    public AccessToken login(@RequestBody User user) {
         long currentTimeMillis = System.currentTimeMillis();
         String compact = Jwts.builder()
                 .setSubject(user.getLogin())
@@ -21,6 +23,6 @@ public class LoginController {
                 .setExpiration(new Date(currentTimeMillis + 50000))
                 .signWith(SignatureAlgorithm.HS512, user.getPassword())
                 .compact();
-        return compact;
+        return new AccessToken(compact);
     }
 }

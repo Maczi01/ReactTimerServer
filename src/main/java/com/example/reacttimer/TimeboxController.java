@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class TimeboxController {
 
     private TimeboxService timeboxService;
@@ -17,8 +18,10 @@ public class TimeboxController {
     }
 
     @GetMapping("/api/timeboxes")
-    public List<TimeboxTo> getAllTimeboxes() {
-        return timeboxService.getAllTimeboxes();
+    public ResponseEntity<List<TimeboxTo> >getAllTimeboxes() {
+        return ResponseEntity.ok(timeboxService.getAllTimeboxes());
+
+//        return timeboxService.getAllTimeboxes();
     }
 
     @PostMapping("/api/timeboxes")

@@ -13,13 +13,19 @@ import java.io.IOException;
 public class JwtFilter implements javax.servlet.Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String header = httpServletRequest.getHeader("authorization");
+        String header = httpServletRequest.getHeader("Authorization");
+        System.out.println("=========");
         System.out.println(header);
-        if (httpServletRequest != null || !header.startsWith("Bearer ")) {
+        System.out.println("=========");
+        if (httpServletRequest == null) {
+//        if (httpServletRequest != null || header.startsWith("Bearer ")) {
             throw new ServletException("Wrong header");
         } else {
             try {
+                System.out.println("======header======");
+                System.out.println(header);
                 String token = header.substring(7);
                 Claims claims = Jwts.parser().setSigningKey("password").parseClaimsJws(token).getBody();
                 servletRequest.setAttribute("claims", claims);

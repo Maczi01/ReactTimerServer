@@ -2,6 +2,9 @@ package com.example.reacttimer;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -16,22 +19,19 @@ public class JwtFilter implements javax.servlet.Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String header = httpServletRequest.getHeader("Authorization");
-        System.out.println("=========");
-        System.out.println(header);
-        System.out.println("=========");
-        if (httpServletRequest == null) {
-//        if (httpServletRequest != null || header.startsWith("Bearer ")) {
-            throw new ServletException("Wrong header");
-        } else {
+//        System.out.println("=========");
+//        System.out.println(header);
+//        System.out.println("=========");
+        if (httpServletRequest != null && header.startsWith("Bearer ")) {
             try {
-                System.out.println("======header======");
-                System.out.println(header);
                 String token = header.substring(7);
-                Claims claims = Jwts.parser().setSigningKey("password").parseClaimsJws(token).getBody();
+                Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
                 servletRequest.setAttribute("claims", claims);
             } catch (Exception e) {
-                throw new ServletException("Wrong key");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong key");
             }
+        } else {
+            throw new ServletException("Wrong header");
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

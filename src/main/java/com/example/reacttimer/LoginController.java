@@ -21,7 +21,7 @@ public class LoginController {
                 .claim("roles", "user")
                 .setIssuedAt(new Date(currentTimeMillis))
                 .setExpiration(new Date(currentTimeMillis + 50000))
-                .signWith(SignatureAlgorithm.HS512, user.getPassword())
+                .signWith(SignatureAlgorithm.HS512, "secretkey")
                 .compact();
         return new AccessToken(compact);
     }
